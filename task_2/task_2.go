@@ -2,12 +2,19 @@ package main
 
 import (
 	"fmt"
+	"unicode"
 )
 
 func frequencyCounter(word string) map[string]int {
 	var frequencyMap = make(map[string]int)
 	for _, letter := range word {
-		frequencyMap[string(letter)]++
+		if unicode.IsLetter(letter) || unicode.IsNumber(letter) {
+			if unicode.IsLetter(letter) {
+				letter = unicode.ToLower(letter)
+			}
+			frequencyMap[string(letter)]++
+
+		}
 	}
 	return frequencyMap
 }

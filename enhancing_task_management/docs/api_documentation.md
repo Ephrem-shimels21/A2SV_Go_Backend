@@ -60,7 +60,6 @@ task_manager/
 
 ### Task
 
-```go
 type Task struct {
     ID          primitive.ObjectID `json:"id" bson:"_id,omitempty"`
     Title       string             `json:"title" bson:"title"`
@@ -68,7 +67,6 @@ type Task struct {
     DueDate     string             `json:"due_date" bson:"due_date"` // Expected format: YYYY-MM-DD
     Status      string             `json:"status" bson:"status"` // Allowed values: "Done", "Need Help", "In Progress"
 }
-```
 
 ---
 
@@ -109,13 +107,11 @@ type Task struct {
 - **Due Date:** Must be a valid date string in the format `YYYY-MM-DD`.
 - **Status:** Must be one of `"Done"`, `"Need Help"`, or `"In Progress"`.
 
----
 
 ## Error Handling
 
 - All MongoDB-related errors, such as connection issues, validation errors, or operation failures, are handled gracefully and returned to the client with appropriate status codes.
 
----
 
 ## Testing
 
@@ -123,7 +119,6 @@ type Task struct {
 - Ensure that tasks are correctly created, updated, retrieved, and deleted.
 - Verify data persistence by restarting the application and checking that the data remains intact in MongoDB.
 
----
 
 ## Documentation
 

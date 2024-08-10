@@ -1,10 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"unicode"
 )
-
 
 func frequencyCounter(text string) map[string]int {
 	frequencyMap := make(map[string]int)
@@ -37,15 +38,14 @@ func palindromeChecker(word string) bool {
 	return reversedWord == filteredWord
 }
 
-
 func main() {
-	fmt.Println("Enter a word to check its palindrome status: ")
-	var inputWord string
-	fmt.Scan(&inputWord)
-	fmt.Printf("The word %s is a palindrome: %t\n", inputWord, palindromeChecker(inputWord))
+	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Println("Enter a word to check its frequency: ")
-	var word string
-	fmt.Scan(&word)
-	fmt.Printf("The frequency of the word %s is: %v\n", word, frequencyCounter(word))
+	fmt.Println("Enter a word or sentence to check its palindrome status: ")
+	inputWord, _ := reader.ReadString('\n')
+	fmt.Printf("The text \"%s\" is a palindrome: %t\n", inputWord, palindromeChecker(inputWord))
+
+	fmt.Println("Enter a sentence to check word frequency: ")
+	word, _ := reader.ReadString('\n')
+	fmt.Printf("The frequency of words in the text \"%s\" is: %v\n", word, frequencyCounter(word))
 }

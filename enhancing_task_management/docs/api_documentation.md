@@ -73,7 +73,7 @@ type Task struct {
 1. **Clone the repository:**
 
    ```bash
-   git clone <https://github.com/Ephrem-shimels21/A2SV_Go_Backend.git>
+   git clone https://github.com/Ephrem-shimels21/A2SV_Go_Backend.git
    cd enhancing_task_management
    ```
 

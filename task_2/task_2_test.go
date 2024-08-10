@@ -9,10 +9,11 @@ func TestFrequencyCounter(t *testing.T) {
 		input    string
 		expected map[string]int
 	}{
-		{"hello", map[string]int{"h": 1, "e": 1, "l": 2, "o": 1}},
-		{"test", map[string]int{"t": 2, "e": 1, "s": 1}},
+		{"hello world", map[string]int{"hello": 1, "world": 1}},
+		{"test TEST", map[string]int{"test": 2}},
 		{"", map[string]int{}},
-		{"aabbcc", map[string]int{"a": 2, "b": 2, "c": 2}},
+		{"aabb cc", map[string]int{"aabb": 1, "cc": 1}},
+		{"hello, world!", map[string]int{"hello": 1, "world": 1}},
 	}
 
 	for _, test := range tests {
@@ -28,11 +29,11 @@ func TestPalindromeChecker(t *testing.T) {
 		input    string
 		expected bool
 	}{
-		{"madam", true},
-		{"racecar", true},
-		{"hello", false},
+		{"Madam", true},
+		{"Racecar", true},
+		{"Hello", false},
 		{"", true},
-		{"a", true},
+		{"A man, a plan, a canal, Panama", true},
 	}
 
 	for _, test := range tests {

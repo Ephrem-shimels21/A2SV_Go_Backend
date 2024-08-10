@@ -2,24 +2,35 @@ package data
 
 import (
 	"context"
+	"errors"
+	"regexp"
 
 	"github.com/Ephrem-shimels/A2SV_Go_Backend/enhancing_task_management/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-var tasks = make(map[int]models.Task)
-var currentID = 1
+func ValidateDate(date string) error {
+	// Define a regex pattern for the YYYY-MM-DD format
+	var dateRegex = regexp.MustCompile(`^\d{4}-\d{2}-\d{2}$`)
 
+	if !dateRegex.MatchString(date) {
+		return errors.New("invalid date format, expected YYYY-MM-DD")
+	}
+
+	return nil
+}
 func GetTasks() ([]models.Task, error) {
 	var taskList []models.Task
 	cursor, err := TaskCollection.Find(context.Background(), bson.D{})
 
 	if err != nil {
+		println("Error in GetTasks")
 		return taskList, err
 	}
 	err = cursor.All(context.Background(), &taskList)
 	if err != nil {
+		println("Error in GetTasks 2")
 		return taskList, err
 	}
 
@@ -46,6 +57,9 @@ func GetTask(id string) (models.Task, error) {
 }
 
 func CreateTask(task models.Task) (models.Task, error) {
+	if err := ValidateDate(task.DueDate); err != nil {
+		return task, err
+	}
 	task.ID = primitive.NewObjectID()
 	_, err := TaskCollection.InsertOne(context.Background(), task)
 

@@ -11,7 +11,7 @@ import (
 func GetTasks(cxt *gin.Context) {
 	tasks, err := data.GetTasks()
 	if err != nil {
-		cxt.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve tasks"})
+		cxt.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -72,7 +72,7 @@ func DeleteTask(cxt *gin.Context) {
 	id := cxt.Param("id")
 
 	if err := data.DeleteTask(id); err != nil {
-		cxt.JSON(http.StatusNotFound, gin.H{"error": "Task not found"})
+		cxt.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 	cxt.JSON(http.StatusNoContent, nil)

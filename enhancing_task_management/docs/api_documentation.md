@@ -1,55 +1,110 @@
-# Task Management API Documentation
+# Task Management API
 
-## Endpoints
+## Overview
 
-### GET /tasks
+This Task Management API is designed to manage tasks effectively with CRUD operations (Create, Read, Update, Delete). The API has been enhanced with persistent data storage using MongoDB, ensuring data is retained across application restarts. The MongoDB Go Driver (\`go.mongodb.org/mongo-driver\`) is utilized for seamless interaction with the MongoDB database.
 
-**Description:** Get a list of all tasks.
+## Key Features
 
-**Response:**
+- **Persistent Data Storage:** Uses MongoDB for storing task data.
+- **CRUD Operations:** Supports creating, reading, updating, and deleting tasks.
+- **Error Handling:** Proper error handling is implemented for all MongoDB operations.
+- **Validation:** Input validation ensures data integrity.
+- **Backward Compatibility:** The API remains backward compatible with the previous in-memory version.
 
-- Status: 200 OK
-- Body: Array of tasks
+## Folder Structure
 
-### GET /tasks/:id
+\`\`\`plaintext
+task_manager/
+├── main.go
+├── controllers/
+│ └── task_controller.go
+├── models/
+│ └── task.go
+├── data/
+│ └── task_service.go
+├── router/
+│ └── router.go
+├── docs/
+│ └── api_documentation.md
+└── go.mod
+\`\`\`
 
-**Description:** Get the details of a specific task.
+- **main.go:** Entry point of the application.
+- **controllers/task_controller.go:** Handles incoming HTTP requests and invokes appropriate service methods.
+- **models/task.go:** Defines the data structure for tasks.
+- **data/task_service.go:** Contains business logic and data manipulation functions.
+- **router/router.go:** Sets up routes and initializes the Gin router.
+- **docs/api_documentation.md:** Contains API documentation and related documentation.
+- **go.mod:** Defines the module and its dependencies.
 
-**Response:**
+## API Endpoints
 
-- Status: 200 OK
-- Body: Task object
+- **GET /tasks:** Retrieves a list of all tasks.
+- **GET /tasks/:id:** Retrieves a specific task by its ID.
+- **POST /tasks:** Creates a new task.
+- **PUT /tasks/:id:** Updates an existing task.
+- **DELETE /tasks/:id:** Deletes a specific task.
 
-### POST /tasks
+## Data Model
 
-**Description:** Create a new task.
+### Task
 
-**Request:**
+\`\`\`go
+type Task struct {
+ID primitive.ObjectID \`json:"id" bson:"\_id,omitempty"\`
+Title string \`json:"title" bson:"title"\`
+Description string \`json:"description" bson:"description"\`
+DueDate string \`json:"due_date" bson:"due_date"\` // Expected format: YYYY-MM-DD
+Status string \`json:"status" bson:"status"\` // Allowed values: "Done", "Need Help", "In Progress"
+}
+\`\`\`
 
-- Body: JSON object containing task's title, description, due date, and status
+## Setup Instructions
 
-**Response:**
+1. **Clone the repository:**
 
-- Status: 201 Created
-- Body: Created task object
+   \`\`\`bash
+   git clone <repository_url>
+   cd task_manager
+   \`\`\`
 
-### PUT /tasks/:id
+2. **Set up MongoDB:**
 
-**Description:** Update a specific task.
+   - Install MongoDB locally or use a cloud service provider.
+   - Ensure MongoDB is running on \`localhost:27017\`.
 
-**Request:**
+3. **Install Dependencies:**
 
-- Body: JSON object with the new details of the task
+   \`\`\`bash
+   go mod tidy
+   \`\`\`
 
-**Response:**
+4. **Run the Application:**
 
-- Status: 200 OK
-- Body: Updated task object
+   \`\`\`bash
+   go run main.go
+   \`\`\`
 
-### DELETE /tasks/:id
+5. **Access the API:**
+   - The API will be running at \`http://localhost:8080\`.
+   - Use Postman or any other tool to interact with the API.
 
-**Description:** Delete a specific task.
+## Validation Rules
 
-**Response:**
+- **Due Date:** Must be a valid date string in the format \`YYYY-MM-DD\`.
+- **Status:** Must be one of \`"Done"\`, \`"Need Help"\`, or \`"In Progress"\`.
 
-- Status: 204 No Content
+## Error Handling
+
+- All MongoDB-related errors, such as connection issues, validation errors, or operation failures, are handled gracefully and returned to the client with appropriate status codes.
+
+## Testing
+
+- Use Postman or any other API testing tool to test the endpoints.
+- Ensure that tasks are correctly created, updated, retrieved, and deleted.
+- Verify data persistence by restarting the application and checking that the data remains intact in MongoDB.
+
+### Postman Documentation
+
+- [API Documentation on Postman](https://documenter.postman.com/preview/34185326-e3175eec-7d6a-4530-aa82-48c5b9c71e99)

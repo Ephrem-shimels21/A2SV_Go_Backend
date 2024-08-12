@@ -1,4 +1,3 @@
-```markdown
 # Task Management API Documentation
 
 ## Overview
@@ -28,8 +27,8 @@ The Task Management API allows users to manage tasks with the ability to create,
 7. [Notes](#notes)
 
 ## Folder Structure
-```
 
+```
 task_manager/
 ├── main.go
 ├── controllers/
@@ -48,8 +47,7 @@ task_manager/
 │ └── api_documentation.md
 ├── config.json
 └── go.mod
-
-````
+```
 
 - **main.go**: Entry point of the application.
 - **controllers/controller.go**: Handles incoming HTTP requests and invokes the appropriate service methods for both tasks and user authentication.
@@ -66,6 +64,7 @@ task_manager/
 ## Getting Started
 
 ### Prerequisites
+
 - [Go](https://golang.org/dl/) 1.16 or higher
 - [MongoDB](https://www.mongodb.com/try/download/community) installed and running
 
@@ -75,6 +74,8 @@ task_manager/
    ```bash
    git clone https://github.com/yourusername/task_manager.git
    cd task_manager
+   ```
+
 ````
 
 2. **Install Dependencies:**
@@ -306,4 +307,8 @@ curl -X DELETE http://localhost:8080/tasks/60c72b2f5b3c3c7a7a9c93a5 -H "Authoriz
 curl -X POST http://localhost:8080/promote -d '{"username":"usernameToPromote"}' -H "Authorization: Bearer <your-jwt-token>" -H "Content-Type: application/json"
 ```
 
+**Response:**
+
 - [API Documentation on Postman](https://documenter.getpostman.com/view/34185326/2sA3s4kVco)
+
+````

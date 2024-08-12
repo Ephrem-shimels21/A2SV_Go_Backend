@@ -57,11 +57,11 @@ task_manager/
 
 ```go
 type Task struct {
-    ID          primitive.ObjectID `json:"id" bson:"_id,omitempty"`
-    Title       string             `json:"title" bson:"title"`
-    Description string             `json:"description" bson:"description"`
-    DueDate     string             `json:"due_date" bson:"due_date"` // Expected format: YYYY-MM-DD
-    Status      string             `json:"status" bson:"status"` // Allowed values: "Done", "Need Help", "In Progress"
+	ID          int       `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Date        string `json:"date"`
+	Status      string    `json:"status"`
 }
 ```
 

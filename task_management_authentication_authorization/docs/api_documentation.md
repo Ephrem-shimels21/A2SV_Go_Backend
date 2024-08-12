@@ -1,24 +1,108 @@
+```markdown
 # Task Management API Documentation
 
 ## Overview
 
-The Task Management API allows users to manage tasks, with the ability to create, read, update, and delete tasks. The API includes JWT-based authentication and authorization to ensure that only authenticated users can access the API, and only users with the appropriate roles can perform certain actions.
+The Task Management API allows users to manage tasks with the ability to create, read, update, and delete tasks. The API includes JWT-based authentication and authorization to ensure that only authenticated users can access the API, and only users with the appropriate roles can perform certain actions.
 
 ## Table of Contents
 
-1. [Authentication & Authorization](#authentication--authorization)
+1. [Folder Structure](#folder-structure)
+2. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Installation](#installation)
+   - [Running the Application](#running-the-application)
+3. [Authentication & Authorization](#authentication--authorization)
    - [Register User](#register-user)
    - [Login](#login)
    - [JWT Authentication](#jwt-authentication)
    - [Role-Based Authorization](#role-based-authorization)
-2. [Task Endpoints](#task-endpoints)
+4. [Task Endpoints](#task-endpoints)
    - [Create a Task](#create-a-task)
    - [Get All Tasks](#get-all-tasks)
    - [Get Task by ID](#get-task-by-id)
    - [Update a Task](#update-a-task)
    - [Delete a Task](#delete-a-task)
-3. [Promote User](#promote-user)
-4. [Error Handling](#error-handling)
+5. [Promote User](#promote-user)
+6. [Error Handling](#error-handling)
+7. [Notes](#notes)
+
+## Folder Structure
+```
+
+task_manager/
+├── main.go
+├── controllers/
+│ └── controller.go
+├── models/
+│ ├── task.go
+│ └── user.go
+├── data/
+│ ├── task_service.go
+│ └── user_service.go
+├── middleware/
+│ └── auth_middleware.go
+├── router/
+│ └── router.go
+├── docs/
+│ └── api_documentation.md
+├── config.json
+└── go.mod
+
+````
+
+- **main.go**: Entry point of the application.
+- **controllers/controller.go**: Handles incoming HTTP requests and invokes the appropriate service methods for both tasks and user authentication.
+- **models/task.go**: Defines the Task struct.
+- **models/user.go**: Defines the User struct.
+- **data/task_service.go**: Contains business logic and data manipulation functions for tasks.
+- **data/user_service.go**: Contains business logic and data manipulation functions for users, including password hashing and JWT generation.
+- **middleware/auth_middleware.go**: Implements middleware to validate JWT tokens for authentication and authorization.
+- **router/router.go**: Sets up the routes and initializes the Gin router.
+- **docs/api_documentation.md**: Contains this API documentation and other related documentation.
+- **config.json**: Stores configuration settings, such as the JWT secret key.
+- **go.mod**: Defines the module and its dependencies.
+
+## Getting Started
+
+### Prerequisites
+- [Go](https://golang.org/dl/) 1.16 or higher
+- [MongoDB](https://www.mongodb.com/try/download/community) installed and running
+
+### Installation
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/yourusername/task_manager.git
+   cd task_manager
+````
+
+2. **Install Dependencies:**
+   Ensure you have Go installed, then run:
+
+   ```bash
+   go mod tidy
+   ```
+
+3. **Configure the Application:**
+   Create a `config.json` file in the root directory with the following content:
+   ```json
+   {
+     "jwt_secret_key": "your-secret-key"
+   }
+   ```
+   Replace `"your-secret-key"` with a secure secret key for JWT token generation.
+
+### Running the Application
+
+1. **Start MongoDB:**
+   Make sure your MongoDB instance is running.
+
+2. **Run the Application:**
+   ```bash
+   go run main.go
+   ```
+   The application will start on `http://localhost:8080`.
 
 ## Authentication & Authorization
 
@@ -221,25 +305,5 @@ curl -X DELETE http://localhost:8080/tasks/60c72b2f5b3c3c7a7a9c93a5 -H "Authoriz
 ```bash
 curl -X POST http://localhost:8080/promote -d '{"username":"usernameToPromote"}' -H "Authorization: Bearer <your-jwt-token>" -H "Content-Type: application/json"
 ```
-
-## Error Handling
-
-All error responses will include a JSON object with an `error` key explaining the error. For example:
-
-**Response:**
-
-```json
-{
-  "error": "Unauthorized"
-}
-```
-
-### Common Error Codes
-
-- **400 Bad Request:** Invalid input or request format.
-- **401 Unauthorized:** Invalid credentials or missing token.
-- **403 Forbidden:** Access denied due to insufficient permissions.
-- **404 Not Found:** The requested resource does not exist.
-- **500 Internal Server Error:** An unexpected error occurred on the server.
 
 - [API Documentation on Postman](https://documenter.getpostman.com/view/34185326/2sA3s4kVco)

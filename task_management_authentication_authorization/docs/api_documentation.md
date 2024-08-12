@@ -71,12 +71,11 @@ task_manager/
 ### Installation
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/yourusername/task_manager.git
-   cd task_manager
+   cd task_manager_authentication_authorization
    ```
-
-````
 
 2. **Install Dependencies:**
    Ensure you have Go installed, then run:
@@ -310,5 +309,3 @@ curl -X POST http://localhost:8080/promote -d '{"username":"usernameToPromote"}'
 **Response:**
 
 - [API Documentation on Postman](https://documenter.getpostman.com/view/34185326/2sA3s4kVco)
-
-````

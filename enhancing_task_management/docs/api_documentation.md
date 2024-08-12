@@ -121,6 +121,4 @@ type Task struct {
 
 ### Postman Documentation
 
-- API Documentation on Postman - (https://documenter.postman.com/preview/34185326-e3175eec-7d6a-4530-aa82-48c5b9c71e99?environment=&versionTag=latest&apiName=CURRENT&version=latest&documentationLayout=classic-double-column&documentationTheme=light&logo=https%3A%2F%2Fres.cloudinary.com%2Fpostman%2Fimage%2Fupload%2Ft_team_logo%2Fv1%2Fteam%2Fanonymous_team&logoDark=https%3A%2F%2Fres.cloudinary.com%2Fpostman%2Fimage%2Fupload%2Ft_team_logo%2Fv1%2Fteam%2Fanonymous_team&right-sidebar=303030&top-bar=FFFFFF&highlight=FF6C37&right-sidebar-dark=303030&top-bar-dark=212121&highlight-dark=FF6C37#8c15c181-1e42-4560-b77a-606f7c3d0702)
-
 - [API Documentation on Postman](https://documenter.getpostman.com/view/34185326/2sA3s3Js5z)

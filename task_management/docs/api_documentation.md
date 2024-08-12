@@ -99,10 +99,6 @@ type Task struct {
 - **Due Date:** Must be a valid date string in the format `YYYY-MM-DD`.
 - **Status:** Must be one of `"Done"`, `"Need Help"`, or `"In Progress"`.
 
-## Error Handling
-
-- All MongoDB-related errors, such as connection issues, validation errors, or operation failures, are handled gracefully and returned to the client with appropriate status codes.
-
 ## Testing
 
 - Use Postman or any other API testing tool to test the endpoints.

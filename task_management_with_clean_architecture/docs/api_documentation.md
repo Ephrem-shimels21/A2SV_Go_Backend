@@ -68,7 +68,7 @@ This refactor adheres to Clean Architecture principles, including:
 
 ### Prerequisites
 
-- Go 1.XX
+- Go
 - MongoDB
 - Gin Web Framework
 
@@ -112,11 +112,6 @@ This refactor adheres to Clean Architecture principles, including:
   ```bash
   go test ./...
   ```
-
-## Documentation
-
-- The API documentation is available [here](#).
-- Design decisions and guidelines for future development are documented in the [docs](./docs) directory.
 
 ## Postman API documentation
 

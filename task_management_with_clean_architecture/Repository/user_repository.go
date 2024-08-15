@@ -21,13 +21,36 @@ func NewUserRepository(db infrastructure.Database, collection string) domain.Use
 	}
 }
 
-func (userRepo *UserRepository) RegisterUser(c context.Context, registerDto dtos.RegisterDto) (*domain.User, error) {
+func (userRepo *UserRepository) FindUser(c context.Context, registerDto dtos.RegisterDto) (*domain.User, error) {
 	var existingUser domain.User
 	collection := userRepo.database.Collection(userRepo.collection)
 
 	err := collection.FindOne(c, bson.M{"username": registerDto.Username}).Decode(&existingUser)
 
 	if err != nil {
+		return &domain.User{}, err
+	}
+
+	return &existingUser, nil
+
+}
+
+func (userRepo *UserRepository) countUsers(c context.Context) (int64, error) {
+	collection := userRepo.database.Collection(userRepo.collection)
+
+	userCount, err := collection.CountDocuments(c, bson.M{})
+
+	return userCount, err
+
+}
+
+func (userRepo *UserRepository) RegisterUser(c context.Context, registerDto dtos.RegisterDto, hashPassword string) (*domain.User, error) {
+	var existingUser domain.User
+	collection := userRepo.database.Collection(userRepo.collection)
+
+	err := collection.FindOne(c, bson.M{"username": registerDto.Username}).Decode(&existingUser)
+
+	if err == nil {
 		return &domain.User{}, err
 	}
 
@@ -41,7 +64,7 @@ func (userRepo *UserRepository) RegisterUser(c context.Context, registerDto dtos
 
 	newUser := domain.User{
 		Username: registerDto.Username,
-		Password: registerDto.Password,
+		Password: hashPassword,
 		Role:     role,
 	}
 
@@ -55,10 +78,45 @@ func (userRepo *UserRepository) RegisterUser(c context.Context, registerDto dtos
 
 }
 
-func (userRepo *UserRepository) Login(c context.Context, registerDto dtos.RegisterDto) {
+func (userRepo *UserRepository) Login(c context.Context, registerDto dtos.RegisterDto, token string) (string, error) {
+	// collection := userRepo.database.Collection(userRepo.collection)
+
+	// var user domain.User
+
+	// err := collection.FindOne(c, bson.M{"username": registerDto.Username}).Decode(&user)
+
+	// if err != nil {
+	// 	return "", err
+	// }
+
+	// err = infrastructure.CompareHashPassword(user.Password, registerDto.Password)
+
+	// if err != nil {
+	// 	return "", err
+	// }
+
+	// tokenString, err := infrastructure.GenerateJWT(&user)
+
+	// if err != nil {
+	// 	return "", err
+	// }
+
+	return token, nil
 
 }
 
-func (userRepo *UserRepository) PromoteUser(c context.Context, promoteDto dtos.PromoteDto) {
+func (userRepo *UserRepository) PromoteUser(c context.Context, promoteDto dtos.PromoteDto) error {
+	collection := userRepo.database.Collection(userRepo.collection)
+
+	filter := bson.M{"username": promoteDto.Username}
+	update := bson.M{"$set": bson.M{"role": "admin"}}
+
+	_, err := collection.UpdateOne(c, filter, update)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 
 }

@@ -9,17 +9,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewTaskRouter(db infrastructure.Database, group *gin.RouterGroup) {
+func NewTaskRouter(db infrastructure.Database, gin *gin.Engine) {
 	tr := repository.NewTaskRepository(db, domain.CollectionTasks)
 	tc := &controllers.TaskController{
 		TaskUsecase: usecase.NewTaskUsecase(
 			tr,
 		),
 	}
-	group.GET("/tasks", tc.GetTasks)
-	group.GET("/tasks/:id", tc.GetTask)
-	group.POST("/tasks", tc.CreateTask)
-	group.PUT("/tasks/:id", tc.UpdateTask)
-	group.DELETE("/tasks/:id", tc.DeleteTask)
+	protectedRoute := gin.Group("")
+	publicRoute := gin.Group("")
+	protectedRoute.Use(infrastructure.AdminOnlyMiddleware(), infrastructure.JWTAuthMiddleware())
+	publicRoute.GET("/tasks", tc.GetTasks)
+	publicRoute.GET("/tasks/:id", tc.GetTask)
+	protectedRoute.POST("/tasks", tc.CreateTask)
+	protectedRoute.PUT("/tasks/:id", tc.UpdateTask)
+	protectedRoute.DELETE("/tasks/:id", tc.DeleteTask)
 
 }

@@ -19,13 +19,14 @@ type User struct {
 }
 
 type UserRepository interface {
-	RegisterUser(c context.Context, registerDto dtos.RegisterDto) (*User, error)
-	PromoteUser(c context.Context, promoteDto dtos.PromoteDto)
-	Login(c context.Context, registerDto dtos.RegisterDto)
+	RegisterUser(c context.Context, registerDto dtos.RegisterDto, hashPassword string) (*User, error)
+	PromoteUser(c context.Context, promoteDto dtos.PromoteDto) error
+	Login(c context.Context, registerDto dtos.RegisterDto, token string) (string, error)
+	FindUser(c context.Context, registerDto dtos.RegisterDto) (*User, error)
 }
 
 type UserUsecase interface {
-	RegisterUser(c context.Context, userName string, password string) (*User, error)
-	PromoteUser(c context.Context, userName string)
-	Login(c context.Context, userName string, password string)
+	RegisterUser(c context.Context, registerDto dtos.RegisterDto) (*User, error)
+	PromoteUser(c context.Context, promoteDto dtos.PromoteDto) error
+	Login(c context.Context, registerDto dtos.RegisterDto) (string, error)
 }

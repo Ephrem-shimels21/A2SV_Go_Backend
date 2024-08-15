@@ -6,8 +6,9 @@ import (
 )
 
 func SetupRouter(db infrastructure.Database, gin *gin.Engine) {
-	router := gin.Group("")
+	NewUserRouter(db, gin)
+	NewTaskRouter(db, gin)
 
-	NewTaskRouter(db, router)
+	// NewTaskRouter(db, router)
 
 }

@@ -11,6 +11,11 @@ import (
 func main() {
 	gin := gin.Default()
 
+	err := infrastructure.LoadConfig()
+	if err != nil {
+		log.Fatalf("Error loading configuration: %v", err)
+	}
+
 	db, err := infrastructure.ConnectDb()
 
 	if err != nil {

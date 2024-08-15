@@ -5,7 +5,6 @@ import (
 
 	domain "github.com/Ephrem-shimels/A2SV_Go_Backend/task_management_with_cleanArchitecture/Domain"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type TaskController struct {
@@ -21,8 +20,6 @@ func (taskcont *TaskController) CreateTask(cxt *gin.Context) {
 		cxt.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	newTask.ID = primitive.NewObjectID()
 
 	createdTask, err := taskcont.TaskUsecase.CreateTask(cxt, &newTask)
 

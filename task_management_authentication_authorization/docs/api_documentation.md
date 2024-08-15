@@ -73,7 +73,7 @@ task_manager/
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/task_manager.git
+   git clone https://github.com/Ephrem-shimels21/A2SV_Go_Backend.git
    cd task_manager_authentication_authorization
    ```
 

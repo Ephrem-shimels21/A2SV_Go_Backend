@@ -104,14 +104,10 @@ This refactor adheres to Clean Architecture principles, including:
 - **Login User:** `POST /login`
 - **Promote User:** `PUT /promote`
 - **Create Task:** `POST /tasks`
-- **Get Tasks by User ID:** `GET /tasks/user/:id`
-
-## Testing
-
-- Unit tests are provided for core components. Run the tests using:
-  ```bash
-  go test ./...
-  ```
+- **Get Task by its ID:** `GET /tasks/:id`
+- **Get Tasks:** `GET /tasks`
+- **Update a sepcific Task:** `PUT /tasks/:id`
+- **Delete specific Task:** `DELETE /tasks/:id`
 
 ## Postman API documentation
 
